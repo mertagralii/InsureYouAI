@@ -1,0 +1,24 @@
+@model About
+@{
+    ViewData["Title"] = "Hakkımızda Yazısı Ekle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0">Hakkımızda Yazı Girişi</h5>
+        </div>
+        <form method="post" autocomplete="off">
+            <label>Başlık</label>
+            <input type="text" asp-for="Title" class="form-control" />
+            <br/>
+            <label>Fotoğraf URL</label>
+            <input type="text" asp-for="ImageUrl" class="form-control" />
+            <br/>
+            <label>Açıklaması</label>
+            <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+            <br/>
+            <button type="submit" class="btn btn-primary mt-3">Hakkımızda Yazısı Kaydet</button>
+        </form>
+    </div>
+</div>

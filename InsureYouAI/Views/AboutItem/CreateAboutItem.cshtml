@@ -1,0 +1,18 @@
+@model AboutItem
+@{
+    ViewData["Title"] = "Hakkımızda Madde Yazısı Ekle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0">Yeni Hakkımızda Madde Yazı Girişi</h5>
+        </div>
+        <form method="post" autocomplete="off">
+            <label>İçerik</label>
+            <textarea asp-for="Detail" class="form-control" rows="5"></textarea>
+            <br/>
+            <button type="submit" class="btn btn-primary mt-3">Alanı Kaydet</button>
+        </form>
+    </div>
+</div>

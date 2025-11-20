@@ -1,0 +1,54 @@
+@model List<PricingPlan>
+@{
+    ViewData["Title"] = "Ödeme Planları Listesi";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    int counter = 0;
+}
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0">Ödeme Planları Listesi</h5>
+            <form class="ms-auto position-relative">
+                <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-search"></i></div>
+                <input class="form-control ps-5" type="text" placeholder="Aranacak Kelimeler..." />
+            </form>
+        </div>
+        <div class="table-responsive mt-3">
+            <table class="table align-middle">
+                <thead class="table-secondary">
+                <tr>
+                    <th>#</th>
+                    <th>Başlık</th>
+                    <th>Fiyat</th>
+                    <th>Durum</th>
+                    <th>Güncelle</th>
+                    <th>Sil</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var pricingPlan in Model)
+                {
+                    <tr>
+                        <td>@(++counter)</td>
+                        <td>@pricingPlan.Title</td>
+                        <td>@pricingPlan.Price</td>
+                        <td>
+                            @if (pricingPlan.IsFeature)
+                            {
+                                <span class="badge bg-success">Aktif</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Pasif</span>
+                            }
+                        </td>
+                        <td><a href="/PricingPlan/UpdatePricingPlan/@pricingPlan.Id" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Güncelle"><i class="bi bi-pencil-fill"></i></a></td>
+                        <td><a href="/PricingPlan/DeletePricingPlan/@pricingPlan.Id" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sil"><i class="bi bi-trash-fill"></i></a></td>
+                    </tr> 
+                }
+                </tbody>
+            </table>
+            <a href="/PricingPlan/CreatePricingPlan/" class="btn btn-info">Yeni Ödeme Planı Girişi</a>
+        </div>
+    </div>
+</div>

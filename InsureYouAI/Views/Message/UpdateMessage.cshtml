@@ -1,0 +1,31 @@
+@model Message
+@{
+    ViewData["Title"] = "Mesaj Düzenle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0">Mesaj Düzenle</h5>
+        </div>
+        <form method="post" autocomplete="off">
+            <input type="hidden" asp-for="Id" value="@Model.Id"/>
+            <label>Adı-Soyadı</label>
+            <input type="text" asp-for="NameSurname" class="form-control" value="@Model.NameSurname"/>
+            <br/>
+            <label>Konu</label>
+            <input type="text" asp-for="Subject" class="form-control" value="@Model.Subject"/>
+            <br/>
+            <label>Email</label>
+            <input type="text" asp-for="Email" class="form-control" value="@Model.Email"/>
+            <br/>
+            <label>Telefon Numarası</label>
+            <input type="text" asp-for="PhoneNumber" class="form-control" value="@Model.PhoneNumber"/>
+            <br/>
+            <label>Mesaj Yazısı</label>
+            <textarea asp-for="MessageDetail" class="form-control" rows="5">@Model.MessageDetail</textarea>
+            <br/>
+            <button type="submit" class="btn btn-primary mt-3">Mesajı Düzenle</button>
+        </form>
+    </div>
+</div>

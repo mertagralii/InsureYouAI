@@ -1,0 +1,28 @@
+@model Testimonial
+@{
+    ViewData["Title"] = "Referans Düzenle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0">Referans Düzenle</h5>
+        </div>
+        <form method="post" autocomplete="off">
+            <input type="hidden" asp-for="Id" value="@Model.Id"/>
+            <label>Adı Soyadı</label>
+            <input type="text" asp-for="NameSurname" class="form-control" value="@Model.NameSurname"/>
+            <br/>
+            <label>Ünvan</label>
+            <input type="text" asp-for="Title" class="form-control" value="@Model.Title"/>
+            <br/>
+            <label>Yorum</label>
+            <input type="text" asp-for="CommentDetail" class="form-control" value="@Model.CommentDetail"/>
+            <br/>
+            <label>Profil URL</label>
+            <input type="text" asp-for="ImageUrl" class="form-control" value="@Model.ImageUrl"/>
+            <br/>
+            <button type="submit" class="btn btn-primary mt-3">Referans Düzenle</button>
+        </form>
+    </div>
+</div>

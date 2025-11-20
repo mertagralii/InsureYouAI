@@ -1,0 +1,25 @@
+@model TrailerVideo
+@{
+    ViewData["Title"] = "Video Düzenle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0">Video Düzenle</h5>
+        </div>
+        <form method="post" autocomplete="off">
+            <input type="hidden" asp-for="Id" value="@Model.Id"/>
+            <label>Slider Başlığı</label>
+            <input type="text" asp-for="Title" class="form-control" value="@Model.Title"/>
+            <br/>
+            <label>Kapak Fotoğrafı</label>
+            <input type="text" asp-for="CoverImageUrl" class="form-control" value="@Model.CoverImageUrl"/>
+            <br/>
+            <label>Video Youtube Embed Url</label>
+            <input type="text" asp-for="VideoUrl" class="form-control" value="@Model.VideoUrl"/>
+            <br/>
+            <button type="submit" class="btn btn-primary mt-3">Video Düzenle</button>
+        </form>
+    </div>
+</div>

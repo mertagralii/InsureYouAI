@@ -1,0 +1,27 @@
+@model PricingPlan
+@{
+    ViewData["Title"] = "Ödeme Planı Ekle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0">Ödeme Planı Ekle</h5>
+        </div>
+        <form method="post" autocomplete="off">
+            <label>Başlık</label>
+            <input type="text" asp-for="Title" class="form-control" />
+            <br/>
+            <label>Fiyat</label>
+            <input type="text" asp-for="Price" class="form-control" />
+            <br/>
+            <label>Durum</label>
+            <select asp-for="IsFeature" class="form-select">
+                <option selected="selected" disabled="disabled">Durum Seçiniz</option>
+                <option value="true" selected>Aktif</option>
+                <option value="false">Pasif</option>
+            </select>
+            <button type="submit" class="btn btn-primary mt-3">Ödeme Planını Kaydet</button>
+        </form>
+    </div>
+</div>
