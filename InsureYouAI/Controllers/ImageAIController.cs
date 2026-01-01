@@ -23,7 +23,7 @@ namespace InsureYouAI.Controllers
         {
             var apiKey = "YOUR_OPENAI_API_KEY_HERE";
             var client = _httpClientFactory.CreateClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apikey);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
             var requestData = new
             {
                 prompt = prompt,
