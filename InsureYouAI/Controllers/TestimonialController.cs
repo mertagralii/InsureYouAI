@@ -66,8 +66,7 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateTestimonialWithAnhropicClaude()
         {
-            string apiKey =
-                "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";
+            string apiKey = "YOUR_ANTHROPIC_API_KEY";
             string prompt ="Bir sigorta şirketi için müşteri deneyimlerine dair yorum oluşturmanı istiyorum yani İngilizce karşılığı ile: testimonial. Bu alanda Türkçe olarak 6 tane yorum, 6 tane müşteri adı ve soyadı, Bu müşteriklerin unvanı olsun. Buna göre içeriği hazırla.";
             using var client = new HttpClient();
             client.BaseAddress = new Uri("https://api.anthropic.com/");

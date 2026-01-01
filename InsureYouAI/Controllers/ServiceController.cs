@@ -67,8 +67,7 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateServiceWithAnhropicClaude()
         {
-            string apiKey =
-                "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";
+            string apiKey ="YOUR_ANTHROPIC_API_KEY";
             string prompt ="Bir sigorta şirketi için hizmetler bölümü hazırlamanı istiyorum. Burada 5 farklı hizmet olmalı.Bana maksimum 100 karakterden oluşan cümleler ile 5 tane hizmet içeriği yazar mısın?";
             using var client = new HttpClient();
             client.BaseAddress = new Uri("https://api.anthropic.com/");
