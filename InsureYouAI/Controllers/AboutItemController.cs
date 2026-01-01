@@ -1,3 +1,5 @@
+using System.Text;
+using System.Text.Json;
 using InsureYouAI.Context;
 using InsureYouAI.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +18,8 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public ActionResult AboutItemList()
         {
+            ViewBag.ControllerName = "Hakkımızda Öğeleri";
+            ViewBag.PageName = "Mevcut Hakkımızda Öğeleri";
             var AboutItems = _context.AboutItems.ToList();
             return View(AboutItems);
         }
@@ -23,6 +27,8 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public IActionResult CreateAboutItem()
         {
+            ViewBag.ControllerName = "Hakkımızda Öğeleri";
+            ViewBag.PageName = "Yeni Hakkımızda Öğe Girişi";
             return View();
         }
 
@@ -37,6 +43,8 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public IActionResult UpdateAboutItem(Guid id)
         {
+            ViewBag.ControllerName = "Hakkımızda";
+            ViewBag.PageName = "Hakkımızda Öğeleri Güncelleme Sayfası";
             var AboutItem = _context.AboutItems.Find(id);
             return View(AboutItem);
         }
@@ -59,6 +67,49 @@ namespace InsureYouAI.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction("AboutItemList");
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> CreateAboutItemWithGoogleGemini()
+        {
+            var apiKey = "YOUR_GOOGLE_API_KEY_HERE"; // Api Key
+            var model = "gemini-2.5-pro";
+            var url = $"https://generativelanguage.googleapis.com/v1/models/{model}:generateContent?key={apiKey}";
+            var requestBody = new
+            {
+                contents = new[]
+                {
+                    new
+                    {
+                        parts=new[]
+                        {
+                            new
+                            {
+                                text="Kurumsal bir sigorta firması için etkileyici, güven verici ve profesyonel bir 'Hakkımızda alanları (about item)' yazısı oluştur. Örneğin : 'Geleceğinizi güvence altına alan kapsamlı sigorta çözümleri sunuyoruz.' şeklinde veya bunun gibi ve buna benzer daha zengin içerikler gelsin. En az 10 tane item istiyorum."
+                            }
+                        }
+                    }
+                }
+            };
+
+            var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
+
+            using var httpClient = new HttpClient();
+            var response = await httpClient.PostAsync(url, content);
+            var responseJson = await response.Content.ReadAsStringAsync();
+            
+
+            using var jsonDoc = JsonDocument.Parse(responseJson);
+            var aboutText = jsonDoc.RootElement
+                .GetProperty("candidates")[0]
+                .GetProperty("content")
+                .GetProperty("parts")[0]
+                .GetProperty("text")
+                .GetString();
+
+            ViewBag.value = aboutText;
+
+            return View();
         }
 
     }

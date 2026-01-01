@@ -10,4 +10,7 @@ public class Article
     public string CoverImageUrl { get; set; }
     public Guid CategoryId { get; set; }
     public Category Category { get; set; }
+    public List<Comment> Comments { get; set; }
+    public string? AppUserId { get; set; }
+    public AppUser AppUser { get; set; }
 }

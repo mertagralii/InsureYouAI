@@ -1,0 +1,24 @@
+@model Service
+@{
+    ViewData["Title"] = "Cloude AI ile Hizmet Oluşturma";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    var service = ViewBag.services;
+}
+<div class="container-mt-5">
+    <h2>Cloude AI ile Oluşturulan Hizmetler</h2>
+    <ul class="list-group mt-3 ">
+        @if(service!= null && service.Count > 0)
+        {
+            foreach(var item in service)
+            {
+                <li class="list-group-item">
+                    @item
+                </li>
+            }
+        }
+        else
+        {
+            <li class="list-group-item text-danger">Cloude'dan veri alınamadı: @ViewBag.services</li>
+        }
+    </ul>
+</div>

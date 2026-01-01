@@ -1,0 +1,25 @@
+@model string
+@{
+    ViewData["Title"] = "Create Image with OpenAI";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0">OpenAI İle Görsel Oluşturma</h5>
+        </div>
+        <form method="post" autocomplete="off">
+            <label>Promt Girişi Yapınız : </label>
+            <input type="text" name="prompt" required class="form-control" />
+            <br/>
+            <button type="submit" class="btn btn-primary mt-3">Görsel Oluştur</button>
+        </form>
+        @if(Model != null)
+        {
+            <div class="mt-4">
+                <h5>Oluşturulan Görsel:</h5>
+                <img src="@Model" alt="OpenAI Görseli" style="max-width: 512px"/>
+            </div>
+        }
+    </div>
+</div>

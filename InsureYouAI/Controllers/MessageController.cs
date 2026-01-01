@@ -1,5 +1,6 @@
 using InsureYouAI.Context;
 using InsureYouAI.Entities;
+using InsureYouAINew.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InsureYouAI.Controllers
@@ -7,15 +8,20 @@ namespace InsureYouAI.Controllers
     public class MessageController : Controller
     {
         private readonly InsureContext _context;
+        private readonly AIService _aiService;
 
-        public MessageController(InsureContext context)
+        public MessageController(InsureContext context, AIService aiService)
         {
             _context = context;
+            _aiService = aiService;
         }
+        
 
         [HttpGet]
         public ActionResult MessageList()
         {
+            ViewBag.ControllerName = "Mesaj Sayfası";
+            ViewBag.PageName = "İletişim Kısmından gelen Mesajlar";
             var MessageList = _context.Messages.ToList();
             return View(MessageList);
         }
@@ -23,14 +29,21 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public IActionResult CreateMessage()
         {
+            ViewBag.ControllerName = "Mesaj Sayfası";
+            ViewBag.PageName = "Yeni Mesaj Oluştur.";
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateMessage(Message message)
+        public async Task<IActionResult> CreateMessage(Message message)
         {
-            message.SendDate = DateTime.Now;
+            var combinedText = $"{message.Subject} {message.MessageDetail}";
+            var categoryTask = await _aiService.PredictCategoryAsync(combinedText);
+            var priorityTask = await _aiService.PredictPriorityAsync(combinedText);
+            message.AICategory = categoryTask;
+            message.Priority = priorityTask;
             message.IsRead = false;
+            message.SendDate = DateTime.Now;
             _context.Messages.Add(message);
             _context.SaveChanges();
             return RedirectToAction("MessageList");
@@ -39,6 +52,8 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public IActionResult UpdateMessage(Guid id)
         {
+            ViewBag.ControllerName = "Mesaj Sayfası";
+            ViewBag.PageName = "Mesaj Güccelleme Sayfası";
             var message = _context.Messages.Find(id);
             return View(message);
         }

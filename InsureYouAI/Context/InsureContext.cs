@@ -1,9 +1,11 @@
 using InsureYouAI.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 
 namespace InsureYouAI.Context;
 
-public class InsureContext :DbContext
+public class InsureContext :IdentityDbContext<AppUser>
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -21,4 +23,11 @@ public class InsureContext :DbContext
     public DbSet<Slider> Sliders  { get; set; }
     public DbSet<Testimonial> Testimonials { get; set; }
     public DbSet<TrailerVideo> TrailerVideos { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+    public DbSet<PricinPlanItem> PricinPlanItems { get; set; }
+    public DbSet<Gallery> Galleries { get; set; }
+    public DbSet<ClaudeAIMessage> ClaudeAIMessages { get; set; }
+    public DbSet<Revenue> Revenue { get; set; }
+    public DbSet<Expense> Expenses { get; set; }
+    public DbSet<Policy> Policies { get; set; }
 }

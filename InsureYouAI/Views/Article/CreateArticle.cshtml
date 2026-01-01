@@ -19,12 +19,30 @@
             <input type="text" asp-for="MainCoverImageUrl" class="form-control" />
             <br/>
             <label>Kategori</label>
-            <input type="text" asp-for="CategoryId" class="form-control" />
+            <select class="form-select" asp-items="ViewBag.Categories" name="CategoryId">
+                <option value="">--Kategori Seçiniz--</option>
+            </select>
             <br/>
-            <label>İçerik</label>
-            <textarea class="form-control" asp-for="Content" rows="15"></textarea>
+            <label>Yazar</label>
+            <select class="form-select" asp-items="ViewBag.AppUsers" name="AppUserId">
+                <option value="">--Yazar Seçiniz--</option>
+            </select>
+            <br/>
+            <label>Makale İçeriği</label>
+            <textarea class="form-control" asp-for="Content" id="Content" rows="15"></textarea>
             <br/>
             <button type="submit" class="btn btn-primary mt-3">Makale Oluştur</button>
         </form>
     </div>
 </div>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#Content'), {
+                language: 'tr'
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>

@@ -1,3 +1,5 @@
+using System.Text;
+using System.Text.Json;
 using InsureYouAI.Context;
 using InsureYouAI.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +18,8 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public ActionResult AboutList()
         {
+            ViewBag.ControllerName = "Hakkımızda";
+            ViewBag.PageName = "Hakkımızda Listesi";
             var Abouts = _context.Abouts.ToList();
             return View(Abouts);
         }
@@ -23,6 +27,8 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public IActionResult CreateAbout()
         {
+            ViewBag.ControllerName = "Hakkımızda";
+            ViewBag.PageName = "Yeni Hakkımızda Yazı Girişi";
             return View();
         }
 
@@ -37,6 +43,8 @@ namespace InsureYouAI.Controllers
         [HttpGet]
         public IActionResult UpdateAbout(Guid id)
         {
+            ViewBag.ControllerName = "Hakkımızda";
+            ViewBag.PageName = "Hakkımızda Yazı Güncelleme Sayfası";
             var About = _context.Abouts.Find(id);
             return View(About);
         }
@@ -61,6 +69,49 @@ namespace InsureYouAI.Controllers
 
             return RedirectToAction("AboutList");
         }
+        [HttpGet]
+        public async Task<IActionResult> CreateAboutWithGoogleGemini()
+        {
+            var apiKey = "YOUR_GOOGLE_API_KEY_HERE"; // Gemini API anahtarınızı buraya ekleyin
+            var model = "gemini-2.5-pro";
+            var url = $"https://generativelanguage.googleapis.com/v1/models/{model}:generateContent?key={apiKey}";
+            var requestBody = new
+            {
+                contents = new[]
+                {
+                    new
+                    {
+                        parts=new[]
+                        {
+                            new
+                            {
+                                text="Kurumsal bir sigorta firması için etkileyici, güven verici ve profesyonel bir 'Hakkımızda' yazısı oluştur."
+                            }
+                        }
+                    }
+                }
+            };
+
+            var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
+
+            using var httpClient = new HttpClient();
+            var response = await httpClient.PostAsync(url, content);
+            var responseJson = await response.Content.ReadAsStringAsync();
+            
+
+            using var jsonDoc = JsonDocument.Parse(responseJson);
+            var aboutText = jsonDoc.RootElement
+                .GetProperty("candidates")[0]
+                .GetProperty("content")
+                .GetProperty("parts")[0]
+                .GetProperty("text")
+                .GetString();
+
+            ViewBag.value = aboutText;
+
+            return View();
+        }
+        
 
     }
 }

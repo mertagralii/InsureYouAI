@@ -7,6 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="MailKit" Version="4.14.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.11" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.11" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.11">
         <PrivateAssets>all</PrivateAssets>
@@ -17,14 +19,10 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Microsoft.ML" Version="5.0.0" />
+      <PackageReference Include="Microsoft.ML.TimeSeries" Version="5.0.0" />
       <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Areas\ServiceController\Controllers\" />
-      <Folder Include="Areas\ServiceController\Data\" />
-      <Folder Include="Areas\ServiceController\Models\" />
-      <Folder Include="Areas\ServiceController\Views\" />
+      <PackageReference Include="PdfPig" Version="0.1.11" />
     </ItemGroup>
 
 </Project>

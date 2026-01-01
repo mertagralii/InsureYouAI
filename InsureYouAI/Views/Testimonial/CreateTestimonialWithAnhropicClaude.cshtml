@@ -1,0 +1,24 @@
+@model Testimonial
+@{
+    ViewData["Title"] = "Cloude AI ile Hizmet Oluşturma";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    var testimonials = ViewBag.testimonials;
+}
+<div class="container-mt-5">
+    <h2>Cloude AI ile Oluşturulan Müşteri Yorum ve Değerlendirme İçerikleri</h2>
+    <ul class="list-group mt-3 ">
+        @if(testimonials!= null && testimonials.Count > 0)
+        {
+            foreach(var item in testimonials)
+            {
+                <li class="list-group-item">
+                    @item
+                </li>
+            }
+        }
+        else
+        {
+            <li class="list-group-item text-danger">Cloude'dan veri alınamadı: @ViewBag.testimonials</li>
+        }
+    </ul>
+</div>
